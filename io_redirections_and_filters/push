@@ -1,0 +1,4 @@
+#!/bin/bash
+git add .
+git commit -m 'io_redirections_and_filters'
+git push
