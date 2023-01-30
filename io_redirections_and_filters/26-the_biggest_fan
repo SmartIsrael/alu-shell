@@ -1,2 +1,35 @@
 #!/bin/bash
 tail -n +2 | cut -f -1 | sort -k 1 | uniq -c | sort -rnk 1 | head -n 11 | rev | cut -d  ' ' -f -1 | rev
+# Store the file name
+file=$1
+
+# Create a dictionary to store the host and its count
+declare -A host_dict
+
+# Read each line of the file
+while IFS=$'\t' read -r host logname time method url response bytes
+do
+  # If the host is not in the dictionary, initialize its count to 1
+  if [ -z ${host_dict[$host]+_} ]
+  then
+    host_dict[$host]=1
+  else
+    # If the host is in the dictionary, increment its count
+    host_dict[$host]=$((${host_dict[$host]} + 1))
+  fi
+done < "$file"
+
+# Sort the dictionary in descending order by count
+sorted_hosts=$(echo "${!host_dict[@]}" | tr ' ' '\n' | sort -k1nr)
+
+# Print the first 11 hosts
+count=0
+for host in $sorted_hosts
+do
+  if [ $count -eq 11 ]
+  then
+    break
+  fi
+  echo $host
+  count=$(($count + 1))
+done
