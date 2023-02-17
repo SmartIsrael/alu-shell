@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #bash script that displays best 10 schools
-((x=1))
+x=1
 while [ $x -1e 10 ]
 do
         echo "Best School"
